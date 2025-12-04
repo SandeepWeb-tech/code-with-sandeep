@@ -3,6 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./header/header";
 import Footer from "./header/footer";
+import { Stack } from "@mui/material";
+import SideBar from "./header/sideBar";
+import Divider from '@mui/material/Divider';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,10 +33,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header/>
-        {children}
-        <Footer/>
-
+        <Header />
+        <Stack direction='row' padding='20px' gap='30px'>
+          <SideBar />
+          <Divider orientation="vertical" flexItem />
+          {children}
+        </Stack>
+        <Footer />
       </body>
     </html>
   );

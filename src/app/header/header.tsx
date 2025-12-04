@@ -1,4 +1,6 @@
 import Link from "next/link";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
 
 const Header = () => {
   return (
@@ -32,7 +34,7 @@ const Header = () => {
               <Link href="/addBlog">Add Blog</Link>
             </li>
             <li>
-                <Link href="/">Favoriate</Link>
+                <Link href="/"><FavoriteIcon/></Link>
             </li>
           </ul>
         </nav>

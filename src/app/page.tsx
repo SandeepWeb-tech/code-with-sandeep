@@ -1,34 +1,47 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { red } from "@mui/material/colors";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface iData {
-  title:string;
-  description: string
-  _id: string
+  title: string;
+  description: string;
+  _id: string;
 }
 
 export default function Home() {
-
   const [data, setData] = useState<iData[]>([]);
 
-   const getData = async () => {
+  const getData = async () => {
     try {
-
-      const response = await fetch('/api/user', {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",   // tells server we expect JSON
-        "Accept": "application/json",         // tells server we want JSON back
-        "Authorization": "Bearer YOUR_TOKEN"  // optional: add if API requires auth
-      }
-    });
+      const response = await fetch("/api/user", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer YOUR_TOKEN",
+        },
+      });
 
       console.log(response);
       const { success, data } = await response.json();
       if (success) {
         alert("Data fetched successfully");
         console.log(data);
-        setData(data)
+        setData(data);
       }
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -42,39 +55,45 @@ export default function Home() {
   const dataUser = [
     {
       title: "Sanchar saathi news",
-      content: "lorem param ips",
+      description: "lorem param ips",
     },
     {
       title: "mera gao",
-      content: "lorem param ips",
+      description: "lorem param ips",
     },
     {
       title: "mera gao me aao",
-      content: "lorem param ips",
+      description: "lorem param ips",
     },
   ];
 
   return (
-    <div className="p-8 flex flex-row gap-12 font-sans dark:bg-black">
-      {data.map((ele) => (
-        <div
-          style={{
-            padding: "1rem",
-            display: "flex",
-            flexDirection: "column",
-            flexWrap: 'wrap',
-            gap: "1rem",
-            boxShadow: "box-shadow: 0 4px 12px rgba(0,0,0,0.1)",
-            background: "#f1cfcfff",
-            borderRadius: "12px",
-          }}
-        >
-          <h1 style={{ fontSize: "20px", fontWeight: 500 }}>{ele.title}</h1>
-          <p style={{ fontSize: "14px", fontWeight: 400 }}>{ele.description}</p>
-          <button style={{ background: "blue", width: "120px" }}>
-            Add to favoriate
-          </button>
-        </div>
+    <div className="p-1 flex flex-row gap-12 font-sans dark:bg-black">
+      {dataUser.map((ele) => (
+        <Card sx={{ maxWidth: 345 }}>
+          <CardHeader
+            avatar={
+              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                {(ele.title.split('')[0]).toUpperCase()}
+              </Avatar>
+            }
+            title={ele.title}
+            subheader="September 14, 2016"
+          />
+          <CardContent>
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+              {ele.description}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <DeleteIcon />
+            </IconButton>
+          </CardActions>
+        </Card>
       ))}
     </div>
   );
