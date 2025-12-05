@@ -54,23 +54,15 @@ export default function Home() {
 
   const dataUser = [
     {
-      title: "Sanchar saathi news",
-      description: "lorem param ips",
-    },
-    {
       title: "mera gao",
-      description: "lorem param ips",
-    },
-    {
-      title: "mera gao me aao",
       description: "lorem param ips",
     },
   ];
 
   return (
-    <div className="p-1 flex flex-row gap-12 font-sans dark:bg-black">
-      {dataUser.map((ele) => (
-        <Card sx={{ maxWidth: 345 }}>
+    <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '15px'}}>
+      {data.map((ele) => (
+        <Card sx={{ position: 'relative', maxHeight: '300px', minWidth: '400px', maxWidth: '600px', boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px' }}>
           <CardHeader
             avatar={
               <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -80,21 +72,21 @@ export default function Home() {
             title={ele.title}
             subheader="September 14, 2016"
           />
-          <CardContent>
+          <CardContent style={{ maxHeight: '300px',overflow: 'scroll', padding: '0.5rem', paddingBottom: '8rem' }}>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               {ele.description}
             </Typography>
           </CardContent>
-          <CardActions disableSpacing>
+          <CardActions disableSpacing style={{ position: 'absolute', bottom: '0px', width: '100%', background: 'red' }}>
             <IconButton aria-label="add to favorites">
               <FavoriteIcon />
             </IconButton>
-            <IconButton aria-label="share">
+            <IconButton aria-label="delete">
               <DeleteIcon />
             </IconButton>
           </CardActions>
         </Card>
       ))}
-    </div>
+      </div>
   );
 }

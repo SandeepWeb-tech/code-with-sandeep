@@ -32,12 +32,13 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{ height: '100vh'}}
       >
         <Header />
         <Stack direction='row' padding='20px' gap='30px'>
-          <SideBar />
+          <Stack style={{ position: 'sticky', top: '0px'}}><SideBar /></Stack>
           <Divider orientation="vertical" flexItem />
-          {children}
+          <Stack>{children}</Stack>
         </Stack>
         <Footer />
       </body>

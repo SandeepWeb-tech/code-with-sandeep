@@ -12,7 +12,8 @@ const Header = () => {
           justifyContent: "space-between",
           alignItems: "center",
           position: "sticky",
-          top: '0px'
+          top: '0px',
+          zIndex: 111111
         }}
       >
         <h1 style={{ fontSize: "1.8rem" }}>Blog</h1>
