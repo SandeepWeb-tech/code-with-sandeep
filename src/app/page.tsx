@@ -1,12 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Avatar,
+  Box,
   Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
+  Divider,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -14,7 +19,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { red } from "@mui/material/colors";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 interface iData {
   title: string;
@@ -55,38 +61,47 @@ export default function Home() {
   const dataUser = [
     {
       title: "mera gao",
-      description: "lorem param ips",
+      description:
+        "lorem param ips lorem param iplorem lorem param iplorem param iplorem param iplorem param iplorem param iplorem param iplorem param iplorem param ipparam iplorem param iplorem param iplorem param iplorem param ipvlorem param iplorem param ipvlorem param ipvvlorem param iplorem param iplorem param iplorem param iplorem param ipvlorem param iplorem param iplorem param iplorem param iplorem param iplorem param iplorem param ipvvvlorem param iplorem param iplorem param iplorem param ip",
     },
   ];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '15px'}}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: "30px",
+      }}
+    >
       {data.map((ele) => (
-        <Card sx={{ position: 'relative', maxHeight: '300px', minWidth: '400px', maxWidth: '600px', boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px' }}>
-          <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                {(ele.title.split('')[0]).toUpperCase()}
-              </Avatar>
-            }
-            title={ele.title}
-            subheader="September 14, 2016"
-          />
-          <CardContent style={{ maxHeight: '300px',overflow: 'scroll', padding: '0.5rem', paddingBottom: '8rem' }}>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              {ele.description}
-            </Typography>
-          </CardContent>
-          <CardActions disableSpacing style={{ position: 'absolute', bottom: '0px', width: '100%', background: 'red' }}>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="delete">
-              <DeleteIcon />
-            </IconButton>
-          </CardActions>
-        </Card>
+        <Accordion slotProps={{ heading: { component: "h4" } }}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1-content"
+            id="panel1-header"
+          >
+            <Box className="flex flex-row gap-2 items-center">
+                <Typography style={{ background: 'red', padding: '0.3rem 0.6rem', borderRadius: '15px'}}>{ele.title.split("")[0].toUpperCase()}</Typography>
+                <Typography>{ele.title}</Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box className='flex flex-col'>
+              <Box className='flex flex-row'>
+                <IconButton aria-label="add to favorites">
+                  <FavoriteIcon className="text-blue-500 w-12 h-12 animate-bounce" />
+                </IconButton>
+                <IconButton aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+              <Box>{ele.description}</Box>
+            </Box>
+          </AccordionDetails>
+        </Accordion>
       ))}
-      </div>
+    </div>
   );
 }
