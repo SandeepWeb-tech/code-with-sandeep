@@ -27,12 +27,12 @@ const AddBlog = () => {
     if (success === true) {
       setTitle("");
       setDiscription("");
-      setShow(true)
+      setShow(true);
     }
 
     setTimeout(() => {
-      setShow(false)
-    }, 2000)
+      setShow(false);
+    }, 2000);
   };
 
   return (
@@ -106,9 +106,11 @@ const AddBlog = () => {
         </Button>
       </div>
 
-      {show && <Alert variant="outlined" severity="success">
-        This is an outlined success Alert.
-      </Alert>}
+      {show && (
+        <Alert variant="outlined" severity="success">
+          This is an outlined success Alert.
+        </Alert>
+      )}
     </div>
   );
 };

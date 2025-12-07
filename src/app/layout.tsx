@@ -5,8 +5,8 @@ import Header from "./header/header";
 import Footer from "./header/footer";
 import { Stack } from "@mui/material";
 import SideBar from "./header/sideBar";
-import Divider from '@mui/material/Divider';
-
+import Divider from "@mui/material/Divider";
+import Category from "./header/category";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,14 +32,11 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        style={{ height: '100vh', overflow: 'hidden'}}
+        style={{ height: "100vh", overflow: "hidden" }}
       >
         <Header />
-        <Stack direction='row' padding='20px' gap='30px' style={{ display: 'flex', flex: '1', overflow: 'hidden'}}>
-          <Stack style={{ position: 'sticky', top: '0px', flex: '0 0 300px', overflow: 'hidden'}}><SideBar /></Stack>
-          <Divider orientation="vertical" flexItem style={{ width: '1px', background: '#ccc'}}/>
-          <Stack style={{ flex: '1', overflowY: 'auto', height: '100vh', padding: '0.5rem'}}>{children}</Stack>
-        </Stack>
+        <Category />
+        {children}
         <Footer />
       </body>
     </html>

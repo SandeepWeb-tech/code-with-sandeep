@@ -1,10 +1,28 @@
-import { Card, Divider, Stack, Typography } from "@mui/material";
+import { Box, Card, Divider, Stack, Typography } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
+import Drawer from '@mui/material/Drawer';
+// or
 const SideBar = () => {
   return (
     <>
-      <Card
+<Box className='flex flex-col p-10'>
+
+
+</Box>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<Drawer anchor='left' open={true} children={<Box><Card
         style={{
           width: "300px",
           display: "flex",
@@ -26,7 +44,8 @@ const SideBar = () => {
           <Typography style={{ fontSize: "20px", fontWeight: 500 }}>Sandeep</Typography>
           <Typography style={{ fontSize: "14px", fontWeight: 400 }}>Software Enginner</Typography>
         </Stack>
-      </Card>
+      </Card></Box>}/>
+
     </>
   );
 };
