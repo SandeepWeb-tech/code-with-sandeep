@@ -23,7 +23,7 @@ import { red } from "@mui/material/colors";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Image from "next/image";
-import { TypeSpecimenOutlined } from "@mui/icons-material";
+import { Api, TypeSpecimenOutlined } from "@mui/icons-material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 // interface iData {
@@ -31,6 +31,13 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 //   description: string;
 //   _id: string;
 // }
+
+// const api = fetch("/api/user").then(res => res.json());
+
+// const data = use(Api);
+
+
+
 
 export default function Home() {
   const [data, setData] = useState<any[]>([]);
@@ -70,16 +77,40 @@ export default function Home() {
     },
   ];
 
+const deleteData = async (_id: any) => {
+  try {
+    const response = await fetch("/api/product", {
+      method: "DELETE", // ✅ use DELETE
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer YOUR_TOKEN",
+      },
+      body: JSON.stringify({ _id }), // ✅ send id in body
+    });
+
+    const { status, message } = await response.json();
+
+    if (status) {
+      alert("Data deleted successfully");
+      // Optionally refresh your data list here
+    } else {
+      alert("Failed to delete: " + message);
+    }
+  } catch (err) {
+    console.error("Error deleting data:", err);
+  }
+};
+
   return (
     <>
-      <Box>
+      <Box className='flex'>
         {data.map((element: any) => (
           <Card className="flex flex-col p-2 gap-2 w-[250px]" key={element._id}>
             <Box className="flex justify-between itens-center">
               {element.isOfferAvailable && <span className="text-white bg-red-500 rounded-lg pl-2 pr-2">
                 offer 50%
               </span>}
-              <FavoriteIcon className="w-12 h-12 text-red-500" />
+              <FavoriteIcon className="w-12 h-12 text-red-500" onClick={() => deleteData(element._id)}/>
             </Box>
             <Box className="flex flex-col justify-between items-center">
               <Image

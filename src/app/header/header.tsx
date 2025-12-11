@@ -2,7 +2,7 @@ import Link from "next/link";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Applogo from "../../../public/eshopify.png";
 import Image from "next/image";
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 const Header = () => {
@@ -27,7 +27,7 @@ const Header = () => {
         <Link href="/about">About</Link>
         <Link href="/services">Services</Link>
         <Link href="/contact">Contact</Link>
-        <Link href="/addBlog">Add Blog</Link>
+        <Link href="/admin"><Button>Admin</Button></Link>
         <Link href="/">
           <Box className='relative'>
             <AddShoppingCartIcon fontSize="large" className="z-111" />

@@ -1,5 +1,6 @@
 import { connectDb } from "../../../helper/db";
 import productSchemaNew from "../../../model/product";
+import { ObjectId } from "mongodb"; // import ObjectId
 import { NextResponse } from "next/server";
 
 await connectDb();
@@ -37,3 +38,19 @@ export async function POST(request) {
     );
   }
 }
+
+export async function DELETE(request) {
+  const { _id } = await request.json();
+
+  // Convert string to ObjectId
+  await productSchemaNew.deleteOne({ _id: new ObjectId(_id) });
+
+  return NextResponse.json(
+    {
+      message: "deleted",
+      status: true,
+    },
+    { status: 200, statusText: "OK" } // better to use 200 for delete success
+  );
+}
+
