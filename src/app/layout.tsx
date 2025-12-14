@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./header/header";
 import Footer from "./header/footer";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import SideBar from "./header/sideBar";
 import Divider from "@mui/material/Divider";
 import Category from "./header/category";
@@ -32,11 +32,11 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        style={{ height: "100vh", overflow: "hidden" }}
+        style={{ height: "100vh", display: 'flex', flexDirection: 'column' }}
       >
         <Header />
         <Category />
-        {children}
+        <Box className='flex-1 overflow-auto w-full'>{children}</Box>
         <Footer />
       </body>
     </html>
