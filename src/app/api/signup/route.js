@@ -8,11 +8,12 @@ await connectDb();
 
 export async function POST(request) {
   const { name, email, password } = await request.json();
+  const hashedPassword = await bcrypt.hash(password, 10);
   try {
     const newAdminData = new AdminData({
       name,
       email,
-      password,
+      password: hashedPassword,
     });
 
     if (!name || !email || !password) {

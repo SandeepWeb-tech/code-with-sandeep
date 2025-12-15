@@ -18,10 +18,15 @@ export async function POST(req) {
     }
 
     // Verify password
-    const isMatch = data.email === email && data.password === password;
+    // const isMatch = data.email === email && data.password === password;
+    const isMatch = await bcrypt.compare(password, data.password);
     if (!isMatch) {
       return NextResponse.json({ msg: "Invalid credentials" }, { status: 401 });
     }
+
+    const token = jwt.sign({ id: data._id }, "abcdefghijklm", {
+      expiresIn: "1d",
+    });
 
     // Generate JWT
     // const token = jwt.sign(
@@ -30,10 +35,20 @@ export async function POST(req) {
     //   { expiresIn: "1h" }
     // );
 
-    return NextResponse.json(
-      { msg: "Successfully login!!", success: true },
+    const response = NextResponse.json(
+      {
+        msg: "Successfully login!!",
+        success: true,
+      },
       { status: 200 }
     );
+    response.cookies.set("token", token);
+    return response;
+
+    // return NextResponse.json(
+    //   { msg: "Successfully login!!", success: true, token },
+    //   { status: 200 }
+    // );
   } catch (error) {
     console.error("Login error:", error);
     return NextResponse.json(

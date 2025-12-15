@@ -25,6 +25,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Image from "next/image";
 import { Api, TypeSpecimenOutlined } from "@mui/icons-material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { useRouter } from "next/navigation";
+import jwt from "jsonwebtoken";
 
 // interface iData {
 //   title: string;
@@ -36,11 +38,30 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 // const data = use(Api);
 
-
-
-
 export default function Home() {
   const [data, setData] = useState<any[]>([]);
+  const router = useRouter();
+
+  //  useEffect(() => {
+  //   console.log('token', token)
+  //   if (!token) {
+  //     router.push("/login");
+  //   } else {
+  //     try {
+  //       // Just decode, don’t verify with secret on client
+  //       const decoded = jwt.decode(token);
+  //       if (decoded) {
+  //         getData(); // fetch protected data
+  //       } else {
+  //         localStorage.removeItem("token");
+  //         router.push("/login");
+  //       }
+  //     } catch (err) {
+  //       localStorage.removeItem("token");
+  //       router.push("/login");
+  //     }
+  //   }
+  // }, []);
 
   const getData = async () => {
     try {
@@ -65,10 +86,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   const dataUser = [
     {
       title: "mera gao",
@@ -77,40 +94,45 @@ export default function Home() {
     },
   ];
 
-const deleteData = async (_id: any) => {
-  try {
-    const response = await fetch("/api/product", {
-      method: "DELETE", // ✅ use DELETE
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer YOUR_TOKEN",
-      },
-      body: JSON.stringify({ _id }), // ✅ send id in body
-    });
+  const deleteData = async (_id: any) => {
+    try {
+      const response = await fetch("/api/product", {
+        method: "DELETE", // ✅ use DELETE
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer YOUR_TOKEN",
+        },
+        body: JSON.stringify({ _id }), // ✅ send id in body
+      });
 
-    const { status, message } = await response.json();
+      const { status, message } = await response.json();
 
-    if (status) {
-      alert("Data deleted successfully");
-      // Optionally refresh your data list here
-    } else {
-      alert("Failed to delete: " + message);
+      if (status) {
+        alert("Data deleted successfully");
+        // Optionally refresh your data list here
+      } else {
+        alert("Failed to delete: " + message);
+      }
+    } catch (err) {
+      console.error("Error deleting data:", err);
     }
-  } catch (err) {
-    console.error("Error deleting data:", err);
-  }
-};
+  };
 
   return (
     <>
-      <Box className='flex'>
+      <Box className="flex">
         {data.map((element: any) => (
           <Card className="flex flex-col p-2 gap-2 w-[250px]" key={element._id}>
             <Box className="flex justify-between itens-center">
-              {element.isOfferAvailable && <span className="text-white bg-red-500 rounded-lg pl-2 pr-2">
-                offer 50%
-              </span>}
-              <FavoriteIcon className="w-12 h-12 text-red-500" onClick={() => deleteData(element._id)}/>
+              {element.isOfferAvailable && (
+                <span className="text-white bg-red-500 rounded-lg pl-2 pr-2">
+                  offer 50%
+                </span>
+              )}
+              <FavoriteIcon
+                className="w-12 h-12 text-red-500"
+                onClick={() => deleteData(element._id)}
+              />
             </Box>
             <Box className="flex flex-col justify-between items-center">
               <Image
@@ -120,9 +142,21 @@ const deleteData = async (_id: any) => {
                 height={140}
                 className="center"
               />
-              <Typography style={{ fontSize: '20px', fontWeight: 'bold'}}>{element.isOfferAvailable}</Typography>
-              <Typography style={{ fontSize: '18px', color: 'black'}}>
-                <span style={{ fontSize: '14px', color: 'grey', textDecoration: 'line-through', marginRight: '10px' }}>${element.actualAmount}</span>${element.afterDiscount}
+              <Typography style={{ fontSize: "20px", fontWeight: "bold" }}>
+                {element.isOfferAvailable}
+              </Typography>
+              <Typography style={{ fontSize: "18px", color: "black" }}>
+                <span
+                  style={{
+                    fontSize: "14px",
+                    color: "grey",
+                    textDecoration: "line-through",
+                    marginRight: "10px",
+                  }}
+                >
+                  ${element.actualAmount}
+                </span>
+                ${element.afterDiscount}
               </Typography>
               <Button variant="contained" color="primary" fullWidth>
                 {" "}
